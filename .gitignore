@@ -1,0 +1,61 @@
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Archivos de configuración del entorno virtual
+venv/
+env/
+*.venv
+*.env
+
+# Archivos de configuración específicos de IDEs
+.vscode/
+.idea/
+
+# Archivos de configuración de editor
+*~
+*.swp
+*.swo
+*.bak
+
+# Archivos de logs
+*.log
+
+# Archivos de base de datos
+*.sqlite3
+
+# Archivos de pruebas
+.test/
+*.pot
+*.mo
+*.coverage
+*.tox/
+.nox/
+.coverage.*
+nosetests.xml
+pytest.xml
+coverage.xml
+*.hypothesis/
+
+# Configuración de caché de pip
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Archivos de distribuciones
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# Archivos de configuración de paquetes de Conda
+*.conda
+
+# Otros archivos de caché
+*.dat
+*.db
+
+# PERSONALIZADOS
+output.xlsx
+entorno_txt_a_xlsx/

@@ -89,6 +89,12 @@ def procesar_datos(lineas):
         if match_estudiante:
             registro, alumno = match_estudiante.groups()
             continue
+        else:
+            #Caso especial de estudiante que tiene registro corto
+            match_estudiante = re.search(r'#\s+\d+:\s+Estudiante:\s+(\d+)\s+-\s+(.+)', linea)
+            if match_estudiante:
+                registro, alumno = match_estudiante.groups()
+                continue
 
         if registro and alumno:
             ws['A'+str(counter)] = registro

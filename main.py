@@ -72,6 +72,12 @@ def procesar_datos(lineas):
     ws['U1'] = "NOTA 6"
     ws['V1'] = "MATERIA 7"
     ws['W1'] = "NOTA 7"
+    ws['X1'] = "MATERIA 8"
+    ws['Y1'] = "NOTA 8"
+    ws['Z1'] = "MATERIA 9"
+    ws['AA1'] = "NOTA 9"
+    ws['AB1'] = "MATERIA 10"
+    ws['AC1'] = "NOTA 10"
 
     counter = 2 #fila que inicia
 
@@ -131,6 +137,39 @@ def procesar_datos(lineas):
 
 
         #Extrae datos del histórico
+
+        #Si tenia 10 inscritas
+        match_historico = re.search(r"^([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)\s*([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)\s*([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)", linea)
+        if match_historico:
+            materia8, nota8, materia9, nota9, materia10, nota10 = match_historico.groups()
+            ws['X'+str(counter-1)] = materia8
+            ws['Y'+str(counter-1)] = nota8
+            ws['Z'+str(counter-1)] = materia9
+            ws['AA'+str(counter-1)] = nota9
+            ws['AB'+str(counter-1)] = materia10
+            ws['AC'+str(counter-1)] = nota10
+            print(materia8, nota8, materia9, nota9, materia10, nota10)
+            continue
+
+        #Si tenia 9 inscritas
+        match_historico = re.search(r"^([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)\s*([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)", linea)
+        if match_historico:
+            materia8, nota8, materia9, nota9 = match_historico.groups()
+            ws['X'+str(counter-1)] = materia8
+            ws['Y'+str(counter-1)] = nota8
+            ws['Z'+str(counter-1)] = materia9
+            ws['AA'+str(counter-1)] = nota9
+            print(materia8, nota8, materia9, nota9)
+            continue
+
+        #Si tenia 8 inscritas
+        match_historico = re.search(r"^([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)", linea)
+        if match_historico:
+            materia8, nota8 = match_historico.groups()
+            ws['X'+str(counter-1)] = materia8
+            ws['Y'+str(counter-1)] = nota8
+            continue
+
         #Si tenia 7 inscritas
         match_historico = re.search(r"(\d{1,2}/\d{4})\s*(\d+-\d+)\s*\(\s*(\d+)\s*\)\s*([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)\s*([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)\s*([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)\s*([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)\s*([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)\s*([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)\s*([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)", linea)
         if match_historico:

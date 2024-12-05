@@ -1,6 +1,21 @@
 import re
 from openpyxl import Workbook
-from openpyxl.styles import Font, Alignment, Border, Side
+import chardet
+
+
+def detectar_encoding(ruta_archivo):
+    """
+    Detecta la codificación de un archivo de texto.
+    
+    Args:
+        ruta_archivo (str): Ruta completa del archivo txt a leer
+    
+    Returns:
+        str: Codificación detectada
+    """
+    with open(ruta_archivo, 'rb') as archivo:
+        datos = archivo.read()
+        return chardet.detect(datos)['encoding']
 
 def leer_archivo_txt(ruta_archivo):
     """
@@ -13,7 +28,8 @@ def leer_archivo_txt(ruta_archivo):
         list: Lista de líneas del archivo
     """
     try:
-        with open(ruta_archivo, 'r') as archivo:
+        enc = detectar_encoding(ruta_archivo)
+        with open(ruta_archivo, 'r', encoding=enc) as archivo:
             return [linea.strip() for linea in archivo.readlines()]
     except Exception as e:
         print(f'Error al leer el archivo: {e}')
@@ -116,7 +132,7 @@ def procesar_datos(lineas):
 
         #Extrae datos del histórico
         #Si tenia 7 inscritas
-        match_historico = re.search(r"(\d{1,2}/\d{4})\s*(\d+-\d+)\s*\(\s*(\d+)\s*\)\s*([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)\s*([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-])\s*\)\s*([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)\s*([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)\s*([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)\s*([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)\s*([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)", linea)
+        match_historico = re.search(r"(\d{1,2}/\d{4})\s*(\d+-\d+)\s*\(\s*(\d+)\s*\)\s*([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)\s*([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)\s*([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)\s*([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)\s*([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)\s*([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)\s*([A-Za-z0-9-]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)", linea)
         if match_historico:
             s_ano, sigla_carrera, pps, materia1, nota1, materia2, nota2, materia3, nota3, materia4, nota4, materia5, nota5, materia6, nota6, materia7, nota7 = match_historico.groups()
             ws['H'+str(counter)] = s_ano

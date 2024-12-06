@@ -1,5 +1,6 @@
 import re
 from openpyxl import Workbook
+from openpyxl.utils import get_column_letter 
 import chardet
 
 
@@ -35,7 +36,7 @@ def leer_archivo_txt(ruta_archivo):
         print(f'Error al leer el archivo: {e}')
         return []
 
-def procesar_datos(lineas):
+def procesar_datos(lineas, ws, wb):
     """
     Procesa las líneas de un archivo de texto.
     
@@ -45,9 +46,6 @@ def procesar_datos(lineas):
     Returns:
         pd.DataFrame: DataFrame con los datos procesados
     """
-
-    wb = Workbook()
-    ws = wb.active
 
     ws['A1'] = "REGISTRO"
     ws['B1'] = "ALUMNO"
@@ -88,7 +86,6 @@ def procesar_datos(lineas):
     ingreso = None
     ppac = None
     ppace = None
-    ended_line = False
 
     lineas_a_omitir = [
     "----------------------------------------------------------------------------------------------------",
@@ -148,7 +145,6 @@ def procesar_datos(lineas):
             ws['AA'+str(counter-1)] = nota9
             ws['AB'+str(counter-1)] = materia10
             ws['AC'+str(counter-1)] = nota10
-            print(materia8, nota8, materia9, nota9, materia10, nota10)
             continue
 
         #Si tenia 9 inscritas
@@ -159,7 +155,6 @@ def procesar_datos(lineas):
             ws['Y'+str(counter-1)] = nota8
             ws['Z'+str(counter-1)] = materia9
             ws['AA'+str(counter-1)] = nota9
-            print(materia8, nota8, materia9, nota9)
             continue
 
         #Si tenia 8 inscritas
@@ -296,17 +291,45 @@ def procesar_datos(lineas):
             counter += 1
             continue
 
+    print(f"El documento cuenta con {counter - 1} registros realizados")
 
+def ajustar_tamanio_columnas(ws):
+    """
+    Ajusta el tamaño de las columnas de un DataFrame en un archivo Excel.
+    
+    Args:
+        ws (openpyxl.worksheet.worksheet.Worksheet): Hoja de cálculo de Excel
+    """
+    for col in ws.columns:
+        max_length = 0
+        column_letter = get_column_letter(col[0].column)
+        for cell in col:
+            try:
+                if cell.value:
+                    max_length = max(max_length, len(str(cell.value)))
+            except:
+                pass
+        adjusted_width = (max_length + 4)
+        ws.column_dimensions[column_letter].width = adjusted_width
+    print("Tamaño de columnas ajustado correctamente.")
+
+
+
+def main():
+    wb = Workbook()
+    ws = wb.active
+
+    ruta_archivo = './data/input.txt'
+    lineas = leer_archivo_txt(ruta_archivo)
+
+    procesar_datos(lineas, ws, wb)
+    
+    ajustar_tamanio_columnas(ws)
     
     wb.save("output.xlsx")
-    print(f"El documento cuenta con {counter - 1} registros realizados")
     print("Documento output.xlsx generado correctamente.")
 
 
 
-
-
-
-ruta_archivo = './data/input.txt'
-lineas = leer_archivo_txt(ruta_archivo)
-procesar_datos(lineas)
+if __name__ == "__main__":
+    main()

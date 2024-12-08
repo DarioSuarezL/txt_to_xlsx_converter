@@ -170,7 +170,7 @@ def procesar_datos(lineas, ws, wb):
             continue
 
         if sigla and carrera and ingreso and ppac and ppace:
-            ws['C'+str(counter)] = sigla
+            # ws['C'+str(counter)] = sigla    #SE OCUPARÁ LA CARRERA DE MATERIA Y NO LA DE ESTUDIANTE
             ws['D'+str(counter)] = carrera
             ws['E'+str(counter)] = ingreso
             ws['F'+str(counter)] = ppac
@@ -212,6 +212,8 @@ def procesar_datos(lineas, ws, wb):
         match_historico = re.search(r"(\d{1,2}/\d{4})\s*(\d+-\d+)\s*\(\s*(\d+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)", linea)
         if match_historico:
             s_ano, sigla_carrera, pps, materia1, nota1, materia2, nota2, materia3, nota3, materia4, nota4, materia5, nota5, materia6, nota6, materia7, nota7 = match_historico.groups()
+            ws['C'+str(counter)] = sigla_carrera
+
             ws['H'+str(counter)] = s_ano
             ws['I'+str(counter)] = pps
             ws['J'+str(counter)] = materia1
@@ -236,6 +238,8 @@ def procesar_datos(lineas, ws, wb):
         match_historico = re.search(r"(\d{1,2}/\d{4})\s*(\d+-\d+)\s*\(\s*(\d+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)", linea)
         if match_historico:
             s_ano, sigla_carrera, pps, materia1, nota1, materia2, nota2, materia3, nota3, materia4, nota4, materia5, nota5, materia6, nota6 = match_historico.groups()
+            ws['C'+str(counter)] = sigla_carrera
+            
             ws['H'+str(counter)] = s_ano
             ws['I'+str(counter)] = pps
             ws['J'+str(counter)] = materia1
@@ -258,6 +262,8 @@ def procesar_datos(lineas, ws, wb):
         match_historico = re.search(r"(\d{1,2}/\d{4})\s*(\d+-\d+)\s*\(\s*(\d+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)", linea)
         if match_historico:
             s_ano, sigla_carrera, pps, materia1, nota1, materia2, nota2, materia3, nota3, materia4, nota4, materia5, nota5 = match_historico.groups()
+            ws['C'+str(counter)] = sigla_carrera
+            
             ws['H'+str(counter)] = s_ano
             ws['I'+str(counter)] = pps
             ws['J'+str(counter)] = materia1
@@ -278,6 +284,8 @@ def procesar_datos(lineas, ws, wb):
         match_historico = re.search(r"(\d{1,2}/\d{4})\s*(\d+-\d+)\s*\(\s*(\d+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)", linea)
         if match_historico:
             s_ano, sigla_carrera, pps, materia1, nota1, materia2, nota2, materia3, nota3, materia4, nota4 = match_historico.groups()
+            ws['C'+str(counter)] = sigla_carrera
+            
             ws['H'+str(counter)] = s_ano
             ws['I'+str(counter)] = pps
             ws['J'+str(counter)] = materia1
@@ -296,6 +304,8 @@ def procesar_datos(lineas, ws, wb):
         match_historico = re.search(r"(\d{1,2}/\d{4})\s*(\d+-\d+)\s*\(\s*(\d+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)", linea)
         if match_historico:
             s_ano, sigla_carrera, pps, materia1, nota1, materia2, nota2, materia3, nota3 = match_historico.groups()
+            ws['C'+str(counter)] = sigla_carrera
+            
             ws['H'+str(counter)] = s_ano
             ws['I'+str(counter)] = pps
             ws['J'+str(counter)] = materia1
@@ -312,6 +322,8 @@ def procesar_datos(lineas, ws, wb):
         match_historico = re.search(r"(\d{1,2}/\d{4})\s*(\d+-\d+)\s*\(\s*(\d+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)", linea)
         if match_historico:
             s_ano, sigla_carrera, pps, materia1, nota1, materia2, nota2 = match_historico.groups()
+            ws['C'+str(counter)] = sigla_carrera
+            
             ws['H'+str(counter)] = s_ano
             ws['I'+str(counter)] = pps
             ws['J'+str(counter)] = materia1
@@ -326,6 +338,8 @@ def procesar_datos(lineas, ws, wb):
         match_historico = re.search(r"(\d{1,2}/\d{4})\s*(\d+-\d+)\s*\(\s*(\d+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)", linea)
         if match_historico:
             s_ano, sigla_carrera, pps, materia1, nota1 = match_historico.groups()
+            ws['C'+str(counter)] = sigla_carrera
+            
             ws['H'+str(counter)] = s_ano
             ws['I'+str(counter)] = pps
             ws['J'+str(counter)] = materia1

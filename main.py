@@ -112,6 +112,8 @@ def procesar_datos(lineas, ws, wb):
 
     counter = 2 #fila que inicia
 
+    nombre_contador = 0
+
     registro = None
     alumno = None
     sigla = None
@@ -144,9 +146,11 @@ def procesar_datos(lineas, ws, wb):
             colorear_fila(ws, counter, fill)
 
         #Extrae datos del estudiante
-        match_estudiante = re.search(r'#\s+\d+:\s+Estudiante:(\d+)\s+-\s+(.+)', linea)
+        match_estudiante = re.search(r'#\s+\d+:\s+Estudiante:\s*(\d+)\s+-\s+(.+)', linea)
         if match_estudiante:
             registro, alumno = match_estudiante.groups()
+            nombre_contador += 1
+            # print(f"# {nombre_contador}: Estudiante: {alumno}")
             continue
         else:
             #Caso especial de estudiante que tiene registro corto
@@ -174,7 +178,6 @@ def procesar_datos(lineas, ws, wb):
 
 
         #Extrae datos del histórico
-        #[A-Za-z0-9-]*
         #Si tenia 10 inscritas
         match_historico = re.search(r"^([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)[a-z]*\s*([A-Za-z0-9-@#%]+)\s*\(\s*([A-Za-z0-9-]+)\s*\)", linea)
         if match_historico:
@@ -331,7 +334,8 @@ def procesar_datos(lineas, ws, wb):
             counter += 1
             continue
 
-    print(f"El documento cuenta con {counter - 1} registros realizados")
+    print(f"El documento cuenta con {counter - 1} filas hechas")
+    print(f"El documento cuenta con {nombre_contador} estudiantes")
 
 def ajustar_tamanio_columnas(ws):
     """

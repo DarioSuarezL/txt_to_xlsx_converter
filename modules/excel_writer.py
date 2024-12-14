@@ -299,4 +299,3 @@ def procesar_datos(lineas, ws, wb):
 
     print(f"El documento cuenta con {counter - 1} filas hechas")
     print(f"El documento cuenta con {nombre_contador} estudiantes")
-

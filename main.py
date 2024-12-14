@@ -1,7 +1,7 @@
 from openpyxl import Workbook
 import tkinter as tk
 from tkinter import filedialog, messagebox
-
+import webbrowser
 from modules.file_handler import leer_archivo_txt
 from modules.excel_formatter import ajustar_tamanio_columnas, formatear_celdas
 from modules.excel_writer import procesar_datos
@@ -83,6 +83,17 @@ def iniciar_proceso(input_entry, output_entry):
     else:
         messagebox.showerror("Error", "Ocurrió un error al generar el archivo de Excel.")
 
+def abrir_repositorio():
+    webbrowser.open("https://github.com/DarioSuarezL/txt_to_xlsx_converter")
+
+def acerca_de():
+    frame = tk.Toplevel()
+    frame.title("Acerca de")
+    tk.Label(frame, text="Versión: 0.4.0").pack(padx=10, pady=10)
+    tk.Label(frame, text="Autor: Univ. Darío Suárez Lazarte").pack(padx=10)
+    tk.Label(frame, text="Correo: dsuarezlazarte@gmail.com").pack(padx=10)
+    tk.Button(frame, text="Ir al repositorio", command=lambda: abrir_repositorio()).pack(padx=10, pady=10)
+
 
 
 def iniciar_gui():
@@ -103,7 +114,11 @@ def iniciar_gui():
     output_button.grid(row=1, column=2, padx=10, pady=10)
 
     process_button = tk.Button(root, text="Generar archivo Excel", command=lambda: iniciar_proceso(input_entry, output_entry))
-    process_button.grid(row=2, column=1, padx=3, pady=20)
+    process_button.grid(row=2, column=1, padx=10, pady=10)
+
+    #TODO: Actualizar versión cada que se vea necesario
+    about_me_button = tk.Button(root, text="Acerca de", command=lambda: acerca_de())
+    about_me_button.grid(row=2, column=2, padx=5, pady=5)
 
     root.mainloop()
 

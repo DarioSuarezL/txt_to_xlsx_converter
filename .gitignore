@@ -59,5 +59,6 @@ build/
 # PERSONALIZADOS
 output.xlsx
 output.txt
+data/
 .~lock.output.xlsx#
 entorno_txt_a_xlsx/

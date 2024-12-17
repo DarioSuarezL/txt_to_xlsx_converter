@@ -1,5 +1,4 @@
-import chardet
-
+from charset_normalizer import detect
 
 def detectar_encoding(ruta_archivo):
     """
@@ -13,7 +12,8 @@ def detectar_encoding(ruta_archivo):
     """
     with open(ruta_archivo, 'rb') as archivo:
         datos = archivo.read()
-        return chardet.detect(datos)['encoding']
+        encoding_detectado = detect(datos)['encoding']
+        return encoding_detectado
 
 def leer_archivo_txt(ruta_archivo):
     """
@@ -27,6 +27,7 @@ def leer_archivo_txt(ruta_archivo):
     """
     try:
         enc = detectar_encoding(ruta_archivo)
+        print("Codificación detectada:", enc)
         with open(ruta_archivo, 'r', encoding=enc) as archivo:
             return [linea.strip() for linea in archivo.readlines()]
     except Exception as e:

@@ -30,7 +30,7 @@ def generar_excel(input_path, output_path):
         formatear_celdas(ws)
         
         wb.save(output_path)
-        print("Documento output.xlsx generado correctamente.")
+        print("Documento xlsx generado correctamente.")
         return True
     except Exception as e:
         print("Error:", e)
